@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		7841347B94DD296B5D953089 /* Pods_Messenger.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D0F3A7D94102B1D0BC014DA4 /* Pods_Messenger.framework */; };
 		A21E312C2797018D00FC6D3E /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = A21E312B2797018D00FC6D3E /* GoogleService-Info.plist */; };
+		A261101C279818A5009CC5E9 /* DatabaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A261101B279818A5009CC5E9 /* DatabaseManager.swift */; };
 		A2F4A7D02796B6C5004FA4A8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2F4A7CF2796B6C5004FA4A8 /* AppDelegate.swift */; };
 		A2F4A7D22796B6C5004FA4A8 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2F4A7D12796B6C5004FA4A8 /* SceneDelegate.swift */; };
 		A2F4A7D42796B6C5004FA4A8 /* ConversationsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2F4A7D32796B6C5004FA4A8 /* ConversationsViewController.swift */; };
@@ -28,6 +29,7 @@
 		3EF8543535CB8A244CC18376 /* Pods-Messenger.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Messenger.release.xcconfig"; path = "Target Support Files/Pods-Messenger/Pods-Messenger.release.xcconfig"; sourceTree = "<group>"; };
 		7CEFB2771548D85898F35F81 /* Pods-Messenger.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Messenger.debug.xcconfig"; path = "Target Support Files/Pods-Messenger/Pods-Messenger.debug.xcconfig"; sourceTree = "<group>"; };
 		A21E312B2797018D00FC6D3E /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		A261101B279818A5009CC5E9 /* DatabaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseManager.swift; sourceTree = "<group>"; };
 		A2F4A7CC2796B6C5004FA4A8 /* Messenger.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Messenger.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A2F4A7CF2796B6C5004FA4A8 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A2F4A7D12796B6C5004FA4A8 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -112,6 +114,7 @@
 				A2F4A7CF2796B6C5004FA4A8 /* AppDelegate.swift */,
 				A2F4A7D12796B6C5004FA4A8 /* SceneDelegate.swift */,
 				A2F4A7F52796BCC8004FA4A8 /* Extensions.swift */,
+				A261101B279818A5009CC5E9 /* DatabaseManager.swift */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -280,6 +283,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A2F4A7F32796B7F8004FA4A8 /* NewConversationsViewController.swift in Sources */,
+				A261101C279818A5009CC5E9 /* DatabaseManager.swift in Sources */,
 				A2F4A7ED2796B7BD004FA4A8 /* ProfileViewController.swift in Sources */,
 				A2F4A7E92796B795004FA4A8 /* LoginViewController.swift in Sources */,
 				A2F4A7EB2796B7A1004FA4A8 /* RegisterViewController.swift in Sources */,
@@ -441,12 +445,14 @@
 				DEVELOPMENT_TEAM = 83DZ5UD4QS;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Messenger/Info.plist;
+				INFOPLIST_KEY_NSCameraUsageDescription = "Please allow access to take a profile picture";
+				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "Please allow access to select a photo for your profile";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = UIInterfaceOrientationPortrait;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -472,12 +478,14 @@
 				DEVELOPMENT_TEAM = 83DZ5UD4QS;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Messenger/Info.plist;
+				INFOPLIST_KEY_NSCameraUsageDescription = "Please allow access to take a profile picture";
+				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "Please allow access to select a photo for your profile";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = UIInterfaceOrientationPortrait;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

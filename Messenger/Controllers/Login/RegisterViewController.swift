@@ -171,22 +171,35 @@ class RegisterViewController: UIViewController {
                   return
               }
         
-        //Firebase log in
-        FirebaseAuth.Auth.auth().createUser(withEmail: email, password: password, completion: { auth, error in
-            guard let result = auth, error == nil else {
-                print("Error creating user")
+        // MARK: - Firebase sign in
+
+        DatabaseManager.shared.userExists(with: email, completion: { [weak self] exists in
+            guard let strongSelf = self else { return }
+            
+            guard !exists else {
+                strongSelf.alertUserRegisterError(message: "User with that email adress already exists")
                 return
             }
             
-            let user = result.user
-            print("User registered \(user)")
+            FirebaseAuth.Auth.auth().createUser(withEmail: email, password: password, completion: { auth, error in
+
+                guard auth != nil, error == nil else {
+                    print("Error creating user")
+                    return
+                }
+                
+                DatabaseManager.shared.insertUser(with: ChatAppUser(firstName: firstName,
+                                                                    lastName: lastName,
+                                                                    emailAdress: email))
+                
+                strongSelf.navigationController?.dismiss(animated: true, completion: nil)
+            })
         })
-        
     }
     
-    func alertUserRegisterError() {
+    func alertUserRegisterError(message: String = "Please enter all information to create your account") {
         let alert = UIAlertController(title: "Woops",
-                                      message: "Please enter all information to create your account",
+                                      message: message,
                                       preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "Dismiss", style: .cancel, handler: nil))
         present(alert, animated: true)

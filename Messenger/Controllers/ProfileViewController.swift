@@ -7,6 +7,8 @@
 
 import UIKit
 import FirebaseAuth
+import FBSDKLoginKit
+import GoogleSignIn
 
 class ProfileViewController: UIViewController {
 
@@ -36,17 +38,32 @@ extension ProfileViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         
-        do {
-            try FirebaseAuth.Auth.auth().signOut()
+        let actionSheet = UIAlertController(title: "", message: "Do you want to log out?", preferredStyle: .actionSheet)
+        
+        actionSheet.addAction(UIAlertAction(title: "Log out", style: .destructive, handler: { [weak self] _ in
+            guard let self = self else { return }
             
-            let viewController = LoginViewController()
-            let nav = UINavigationController(rootViewController: viewController)
-            nav.modalPresentationStyle = .fullScreen
+            FBSDKLoginKit.LoginManager().logOut()
+            
+            GIDSignIn.sharedInstance.signOut()
+            
+            do {
+                try FirebaseAuth.Auth.auth().signOut()
                 
-            present(nav, animated: false, completion: nil)
-            
-        } catch {
-            print("Failed to log out")
-        }
+                let viewController = LoginViewController()
+                let nav = UINavigationController(rootViewController: viewController)
+                nav.modalPresentationStyle = .fullScreen
+                    
+                self.present(nav, animated: false, completion: nil)
+                
+            } catch {
+                print("Failed to log out")
+            }
+        }))
+        
+        actionSheet.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        
+        present(actionSheet, animated: true, completion: nil)
+        
     }
 }

@@ -171,6 +171,8 @@ class RegisterViewController: UIViewController {
                   return
               }
         
+        print("Register btn tapped")
+        
         // MARK: - Firebase sign in
 
         DatabaseManager.shared.userExists(with: email, completion: { [weak self] exists in
@@ -202,7 +204,7 @@ class RegisterViewController: UIViewController {
                                       message: message,
                                       preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "Dismiss", style: .cancel, handler: nil))
-        present(alert, animated: true)
+        self.present(alert, animated: true)
     }
     
     @objc private func didTapChangeProfilePicture() {

@@ -12,9 +12,9 @@ final class DatabaseManager {
     
     static let shared = DatabaseManager()
     
-    private let database = Database.database().reference()
+//    private let database = Database.database().reference(fromURL: "https://messenger-6deb4-default-rtdb.europe-west1.firebasedatabase.app/")
     
-    
+    private let database = Database.database(url: "https://messenger-6deb4-default-rtdb.europe-west1.firebasedatabase.app/").reference()
 }
 
 // MARK: - Account Managment
@@ -22,14 +22,29 @@ final class DatabaseManager {
 extension DatabaseManager {
     
     public func userExists(with email: String, completion: @escaping ((Bool) -> Void)) {
-        database.child(email).observeSingleEvent(of: .value, with: { snapshot in
+        var safeEmail = email.replacingOccurrences(of: ".", with: "-")
+        safeEmail = safeEmail.replacingOccurrences(of: "@", with: "-")
+        
+        database.child(safeEmail).observeSingleEvent(of: .value, with: { snapshot in
             guard snapshot.value as? String != nil else {
                 completion(false)
                 return
             }
-            
+
             completion(true)
         })
+        
+//        database.child(safeEmail).getData(completion: { error, snapshot in
+//            guard error == nil else {
+//                print("Failed getting data from realtime database \r\n \(error!.localizedDescription)")
+//                completion(false)
+//                return
+//            }
+//
+//            print("Data: \r\n \(snapshot.value)")
+//
+//            completion(true)
+//        })
     }
     
     /// Inserts new user to database
@@ -39,6 +54,20 @@ extension DatabaseManager {
             "first_name": user.firstName,
             "last_name": user.lastName
         ])
+        
+//        do {
+//            try database.child(user.safeEmail).setValue(
+//                ["first_name": user.firstName, "last_name": user.lastName],
+//                withCompletionBlock: { error, block in
+//                    guard error != nil else {
+//                        print("Error: \(error!.localizedDescription)")
+//                        return
+//                    }
+//                    print("Data was written")
+//                })
+//        } catch let error{
+//            print("\(error)")
+//        }
     }
 }
 

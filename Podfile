@@ -11,8 +11,18 @@ target 'Messenger' do
   pod 'Firebase/Auth'
   pod 'Firebase/Database'
 
+  # Facebook
   pod 'FBSDKLoginKit'
   
+  # Google
   pod 'GoogleSignIn'
+  
+  
+  
+  pod 'JGProgressHUD', '~> 2.1'
+
+  pod 'MessageKit'
+  pod 'RealmSwift'
+  pod 'SDWebImage'
   
 end

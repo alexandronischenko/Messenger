@@ -46,14 +46,37 @@
         <!--Chats-->
         <scene sceneID="EAk-m2-m5f">
             <objects>
-                <viewController id="Ro9-yR-EVn" customClass="ConversationsViewController" customModule="Messenger" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ConversationsViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="Ro9-yR-EVn" customClass="ConversationsViewController" customModule="Messenger" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="4YQ-rM-l4V">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="H7y-gX-ZhZ">
+                                <rect key="frame" x="0.0" y="426" width="414" height="44"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="h6L-5t-hHv">
+                                <rect key="frame" x="0.0" y="140" width="414" height="673"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            </tableView>
+                        </subviews>
                         <viewLayoutGuide key="safeArea" id="VmU-gl-wvf"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="h6L-5t-hHv" firstAttribute="top" secondItem="VmU-gl-wvf" secondAttribute="top" id="Etd-df-69o"/>
+                            <constraint firstItem="VmU-gl-wvf" firstAttribute="trailing" secondItem="h6L-5t-hHv" secondAttribute="trailing" id="QlE-Ar-qtz"/>
+                            <constraint firstItem="VmU-gl-wvf" firstAttribute="bottom" secondItem="h6L-5t-hHv" secondAttribute="bottom" id="fjh-f8-5PJ"/>
+                            <constraint firstItem="h6L-5t-hHv" firstAttribute="leading" secondItem="VmU-gl-wvf" secondAttribute="leading" id="wUt-87-aPv"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Chats" id="qWx-tb-AfE"/>
+                    <connections>
+                        <outlet property="noConversationsLabel" destination="H7y-gX-ZhZ" id="9Zf-Y5-AJk"/>
+                        <outlet property="tableView" destination="h6L-5t-hHv" id="Mdq-2x-otM"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="sdZ-zj-dLo" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>

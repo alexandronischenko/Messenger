@@ -80,15 +80,30 @@ class ConversationsViewController: UIViewController {
     
     @objc func didTapComposeButton() {
         let viewController = NewConversationsViewController()
+        viewController.completion = { [weak self] result in
+            self?.createNewConversation(result: result)
+        }
         let navigationController = UINavigationController(rootViewController: viewController)
         present(navigationController, animated: true)
+    }
+    
+    private func createNewConversation(result: [String: String ]) {
+        guard let name = result["name"], let email = result["email"] else {
+            return
+        }
+        
+        let viewController = ChatViewController(with: email)
+        viewController.isNewConversation = true
+        viewController.title = name
+        viewController.navigationItem.largeTitleDisplayMode = .never
+        navigationController?.pushViewController(viewController, animated: true)
     }
 }
 
 extension ConversationsViewController: UITableViewDataSource, UITableViewDelegate {
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 10
+        return 1
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -101,7 +116,7 @@ extension ConversationsViewController: UITableViewDataSource, UITableViewDelegat
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
 
-        let viewController = ChatViewController()
+        let viewController = ChatViewController(with: "lol")
         viewController.title = "Jenny Smith"
         viewController.navigationItem.largeTitleDisplayMode = .never
         navigationController?.pushViewController(viewController, animated: true)
